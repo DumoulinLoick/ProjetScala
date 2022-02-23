@@ -1,0 +1,23 @@
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = H:\Documents\ING2\SEMESTRE 2\SCALA\PROJET\ProjetScala\graph_squelette\target\scala-2.13\classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraphNeighborsImpl.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Edge.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraphMatrixImpl.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Arc.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraphNeighborsImpl$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraphSuccessorsImpl.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraph.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraph.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraphSuccessorsImpl$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraphDefaultImpl$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraphDefaultImpl$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Edge$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraphMatrixImpl$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Arc$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraphDefaultImpl.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraphDefaultImpl.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StrictGraphMatrixImpl$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	SimpleGraphMatrixImpl.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: H:\Documents\ING2\SEMESTRE 2\SCALA\PROJET\ProjetScala\graph_squelette\target\scala-2.13\classes.bak[0m
