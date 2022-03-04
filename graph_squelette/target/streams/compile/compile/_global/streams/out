@@ -1,4 +1,4 @@
-[0m[[0m[33mwarn[0m] [0m[0m/home/cytech/IdeaProjects/ProjetScala/graph_squelette/src/main/scala/undirected/Edge.scala:27:21: abstract type V in type pattern undirected.Edge[V] is unchecked since it is eliminated by erasure[0m
-[0m[[0m[33mwarn[0m] [0m[0m        case that : Edge[V] => that._1 == _1 && that._2 == _2 || that._1 == _2 && that._2 == _1[0m
-[0m[[0m[33mwarn[0m] [0m[0m                    ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\fabie\OneDrive\Documents\FABIEN\CY Tech\ING2\Programmation fonctionnelle\ProjetScala\graph_squelette\src\main\scala\undirected\SimpleGraphNeighborsImpl.scala:35:35: value && is not a member of type parameter V[0m
+[0m[[0m[31merror[0m] [0m[0m      if (neighbors contains e._1 && neighbors contains e._2)[0m
+[0m[[0m[31merror[0m] [0m[0m                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

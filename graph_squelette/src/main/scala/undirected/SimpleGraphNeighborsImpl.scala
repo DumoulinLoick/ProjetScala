@@ -8,29 +8,42 @@ package undirected
 case class SimpleGraphNeighborsImpl[V](neighbors : Map[V, Set[V]]) extends SimpleGraph[V] {
 
     /** @inheritdoc */
-    val vertices : Set[V] = ???
+    val vertices : Set[V] = neighbors.keySet
 
     /** @inheritdoc */
-    val edges : Set[Edge[V]] = ???
+    val edges : Set[Edge[V]] = (neighbors map {case (k, v) => (k, v.map(c => Edge(k, c)))}).values.flatten.toSet
 
     /** @inheritdoc */
-    def neighborsOf(v: V) : Option[Set[V]] = ???
+    def neighborsOf(v: V) : Option[Set[V]] = neighbors get v
 
     /** @inheritdoc */
-    def + (v : V) : SimpleGraphNeighborsImpl[V] = ???
+    def + (v : V) : SimpleGraphNeighborsImpl[V] = if (neighbors contains v) SimpleGraphNeighborsImpl(neighbors) else SimpleGraphNeighborsImpl(neighbors + (v -> Set())) 
 
     /** @inheritdoc */
-    def - (v : V) : SimpleGraphNeighborsImpl[V] = ???
+    def - (v : V) : SimpleGraphNeighborsImpl[V] = SimpleGraphNeighborsImpl(neighbors - v)
 
     /** @inheritdoc */
-    def +| (e: Edge[V]) : SimpleGraphNeighborsImpl[V] = ???
+    def +| (e: Edge[V]) : SimpleGraphNeighborsImpl[V] =
+      SimpleGraphNeighborsImpl(
+        neighbors + 
+        (e._1 -> ((neighbors getOrElse (e._1, Set())) + e._2)) +
+        (e._2 -> ((neighbors getOrElse (e._2, Set())) + e._1))
+      )
 
     /** @inheritdoc */
-    def -| (e: Edge[V]) : SimpleGraphNeighborsImpl[V] = ???
+    def -| (e: Edge[V]) : SimpleGraphNeighborsImpl[V] =
+      if ((neighbors contains e._1) && (neighbors contains e._2))
+        SimpleGraphNeighborsImpl(
+          neighbors +
+          (e._1 -> (neighbors(e._1) - e._2)) +
+          (e._2 -> (neighbors(e._2) - e._1))
+        )
+      else
+        SimpleGraphNeighborsImpl(neighbors)
 
     /** @inheritdoc */
-    def withoutEdge : SimpleGraphNeighborsImpl[V] = ???
+    def withoutEdge : SimpleGraphNeighborsImpl[V] = SimpleGraphNeighborsImpl((neighbors map {case (k, v) => (k, (v.empty))}))
 
     /** @inheritdoc */
-    def withAllEdges : SimpleGraphNeighborsImpl[V] = ???
+    def withAllEdges : SimpleGraphNeighborsImpl[V] = SimpleGraphNeighborsImpl((neighbors map {case (k, v) => (k, (v ++ neighbors.keySet - k))}))
 }
