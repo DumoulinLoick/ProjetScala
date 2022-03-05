@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuite hostname="student-laptop" name="undirected.SimpleGraphDefaultImplSpec" tests="25" errors="0" failures="0" skipped="0" time="0.578" timestamp="2022-03-05T18:59:17">
+          <properties>
+      <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/><property name="java.specification.version" value="11"/><property name="sun.cpu.isalist" value=""/><property name="sun.jnu.encoding" value="UTF-8"/><property name="sun.arch.data.model" value="64"/><property name="java.vendor.url" value="https://ubuntu.com/"/><property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/><property name="sun.java.command" value="/home/cytech/.sdkman/candidates/sbt/1.6.1/bin/sbt-launch.jar"/><property name="jdk.debug" value="release"/><property name="java.specification.vendor" value="Oracle Corporation"/><property name="java.version.date" value="2021-10-19"/><property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64"/><property name="file.separator" value="/"/><property name="java.vm.compressedOopsMode" value="32-bit"/><property name="line.separator" value="
+"/><property name="java.specification.name" value="Java Platform API Specification"/><property name="java.vm.specification.vendor" value="Oracle Corporation"/><property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/><property name="java.runtime.version" value="11.0.13+8-Ubuntu-0ubuntu1.20.04"/><property name="user.name" value="cytech"/><property name="log4j.ignoreTCL" value="true"/><property name="file.encoding" value="UTF-8"/><property name="jnidispatch.path" value="/home/cytech/.cache/JNA/temp/jna7881369958943142434.tmp"/><property name="jna.loaded" value="true"/><property name="java.io.tmpdir" value="/tmp"/><property name="java.version" value="11.0.13"/><property name="java.vm.specification.name" value="Java Virtual Machine Specification"/><property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/><property name="sun.os.patch.level" value="unknown"/><property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/><property name="java.vendor" value="Ubuntu"/><property name="scala.ext.dirs" value="/home/cytech/.sbt/1.0/java9-rt-ext-ubuntu_11_0_13"/><property name="sun.io.unicode.encoding" value="UnicodeLittle"/><property name="sun.desktop" value="gnome"/><property name="java.class.path" value="/home/cytech/.sdkman/candidates/sbt/1.6.1/bin/sbt-launch.jar"/><property name="java.vm.vendor" value="Ubuntu"/><property name="jline.shutdownhook" value="false"/><property name="user.timezone" value="Europe/Paris"/><property name="os.name" value="Linux"/><property name="java.vm.specification.version" value="11"/><property name="sun.java.launcher" value="SUN_STANDARD"/><property name="user.country" value="US"/><property name="sun.cpu.endian" value="little"/><property name="user.home" value="/home/cytech"/><property name="user.language" value="en"/><property name="sbt.script" value="/home/cytech/.sdkman/candidates/sbt/current/bin/sbt"/><property name="swoval.tmpdir" value="/home/cytech/.sbt/1.0"/><property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/><property name="jline.esc.timeout" value="0"/><property name="path.separator" value=":"/><property name="os.version" value="5.4.0-100-generic"/><property name="jna.nosys" value="true"/><property name="java.runtime.name" value="OpenJDK Runtime Environment"/><property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/><property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/lib64:/usr/lib:/lib:/lib32:/usr/lib32:/usr/lib/x86_64-linux-gnu/libfakeroot"/><property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-lts"/><property name="user.dir" value="/home/cytech/IdeaProjects/ProjetScala/graph_squelette"/><property name="os.arch" value="amd64"/><property name="java.vm.info" value="mixed mode, sharing"/><property name="java.vm.version" value="11.0.13+8-Ubuntu-0ubuntu1.20.04"/><property name="java.class.version" value="55.0"/>
+    </properties>
+          <testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.hasPath must yield false if any input vertex is not a vertex of graph" time="0.205">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.hasPath must yield true if vertex are connected" time="0.024">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.hasPath must yield a boolean in other cases" time="0.071">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.neighborsOf must yield None if input is not an actual vertex of graph" time="0.052">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.neighborsOf must yield a subset of vertex set if input is an actual vertex of graph" time="0.007">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.neighborsOf must yield a set of adjacent vertices" time="0.004">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.+ must contain input vertex" time="0.005">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.+ must return input graph if input vertex is already in graph" time="0.005">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.+ must have input vertex with degree 0 if not an actual vertex of graph" time="0.027">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.- must NOT contain input vertex" time="0.009">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.- must return input graph if input vertex is not already in graph" time="0.04">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.- must have input vertex removed from neighbors if an actual vertex of graph" time="0.057">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.- must have degree updated for all neighbors if an actual vertex of graph" time="0.015">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.- must revert back the + operator applied on an actual new vertex" time="0.003">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.+| must contain input edge" time="0.005">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.+| must contain ends of input edge" time="0.002">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.+| must return input graph if input edge is already in graph" time="0.002">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.-| must NOT contain input edge" time="0.004">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.-| must return input graph if input edge is not already in graph" time="0.019">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.-| must have ends removed from neighbors if an actual vertex of graph" time="0.004">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.-| must have degree updated for both ends if an actual vertex of graph" time="0.006">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.withoutEdge must let vertex set unchanged" time="0.001">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.withoutEdge must have empty edge set" time="0.003">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.withoutEdge must have empty neighbors for any vertex" time="0.004">
+                      
+                    </testcase><testcase classname="undirected.SimpleGraphDefaultImplSpec" name="SimpleGraphDefaultImpl.withoutEdge must have zero degree for any vertex" time="0.004">
+                      
+                    </testcase>
+          <system-out><![CDATA[]]></system-out>
+          <system-err><![CDATA[]]></system-err>
+        </testsuite>

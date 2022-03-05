@@ -2,6 +2,8 @@
 [0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	antennes.csv[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/antennes.csv[0m
+[0m[[0m[0mdebug[0m] [0m[0m	test$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/test$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	Makefile[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/Makefile[0m
 [0m[[0m[0mdebug[0m] [0m[0m	undirected[0m
@@ -24,12 +26,8 @@
 [0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/undirected/SimpleGraphDefaultImpl$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	undirected/SimpleGraph.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/undirected/SimpleGraph.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	application[0m
-[0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/application[0m
-[0m[[0m[0mdebug[0m] [0m[0m	application/test$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/application/test$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	application/test.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/application/test.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	test.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/test.class[0m
 [0m[[0m[0mdebug[0m] [0m[0m	directed[0m
 [0m[[0m[0mdebug[0m] [0m[0m	  /home/cytech/IdeaProjects/ProjetScala/graph_squelette/target/scala-2.13/classes/directed[0m
 [0m[[0m[0mdebug[0m] [0m[0m	directed/StrictGraphDefaultImpl.class[0m
