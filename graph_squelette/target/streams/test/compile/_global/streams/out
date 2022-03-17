@@ -1,6 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0mC:\Users\fabie\OneDrive\Documents\FABIEN\CY Tech\ING2\Programmation fonctionnelle\ProjetScala\graph_squelette\src\test\scala\directed\StrictGraphSuccessorsImplSpec.scala:7:61: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : directed.StrictGraphSuccessorsImpl.type[0m
-[0m[[0m[31merror[0m] [0m[0m required: directed.StrictGraphSpecCompanion[?][0m
-[0m[[0m[31merror[0m] [0m[0mclass StrictGraphSuccessorsImplSpec extends StrictGraphSpec(StrictGraphSuccessorsImpl)[0m
-[0m[[0m[31merror[0m] [0m[0m                                                            ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
