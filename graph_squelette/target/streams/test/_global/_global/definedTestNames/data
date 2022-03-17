@@ -1,1 +1,1 @@
-["directed.StrictGraphDefaultImplSpec","undirected.SimpleGraphNeighborsImplSpec","undirected.SimpleGraphDefaultImplSpec"]
+["directed.StrictGraphDefaultImplSpec","undirected.SimpleGraphNeighborsImplSpec","undirected.SimpleGraphDefaultImplSpec","directed.StrictGraphSuccessorsImplSpec"]

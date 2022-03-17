@@ -1,6 +1,6 @@
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] IncrementalCompile -----------[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncrementalCompile.incrementalCompile[0m
-[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 10 products, 5 sources, 9 libraries[0m
-[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/test/scala/directed/StrictGraphDefaultImplSpec.scala, ${BASE}/src/test/scala/undirected/SimpleGraphNeighborsImplSpec.scala, ${BASE}/src/test/scala/undirected/SimpleGraphSpec.scala, ${BASE}/src/test/scala/undirected/SimpleGraphDefaultImplSpec.scala, ${BASE}/src/test/scala/directed/StrictGraphSpec.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 12 products, 6 sources, 9 libraries[0m
+[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/test/scala/directed/StrictGraphDefaultImplSpec.scala, ${BASE}/src/test/scala/undirected/SimpleGraphNeighborsImplSpec.scala, ${BASE}/src/test/scala/undirected/SimpleGraphSpec.scala, ${BASE}/src/test/scala/undirected/SimpleGraphDefaultImplSpec.scala, ${BASE}/src/test/scala/directed/StrictGraphSpec.scala, ${BASE}/src/test/scala/directed/StrictGraphSuccessorsImplSpec.scala)[0m
 [0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(), unmodified = ...),Set(),Set(),API Changes: Set())[0m
 [0m[[0m[0mdebug[0m] [0m[0mNo changes[0m

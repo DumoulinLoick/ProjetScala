@@ -1,4 +1,6 @@
 #Successful Tests
-#Fri Mar 04 21:38:19 CET 2022
-undirected.SimpleGraphNeighborsImplSpec=1646426299886
-undirected.SimpleGraphDefaultImplSpec=1646426299218
+#Thu Mar 17 18:16:17 CET 2022
+undirected.SimpleGraphNeighborsImplSpec=1647537377607
+directed.StrictGraphDefaultImplSpec=1647537377134
+directed.StrictGraphSuccessorsImplSpec=1647537377556
+undirected.SimpleGraphDefaultImplSpec=1647537377162

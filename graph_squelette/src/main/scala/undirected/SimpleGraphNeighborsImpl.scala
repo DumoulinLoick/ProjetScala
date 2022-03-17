@@ -20,7 +20,7 @@ case class SimpleGraphNeighborsImpl[V](neighbors : Map[V, Set[V]]) extends Simpl
     def + (v : V) : SimpleGraphNeighborsImpl[V] = if (neighbors contains v) SimpleGraphNeighborsImpl(neighbors) else SimpleGraphNeighborsImpl(neighbors + (v -> Set())) 
 
     /** @inheritdoc */
-    def - (v : V) : SimpleGraphNeighborsImpl[V] = SimpleGraphNeighborsImpl(neighbors - v)
+    def - (v : V) : SimpleGraphNeighborsImpl[V] = SimpleGraphNeighborsImpl((neighbors - v) map {case (k, a) => (k, a filterNot {e=> e == v})})
 
     /** @inheritdoc */
     def +| (e: Edge[V]) : SimpleGraphNeighborsImpl[V] =
