@@ -1,5 +1,6 @@
 package undirected
 
+import java.security.KeyStore.TrustedCertificateEntry
 import scala.annotation.tailrec
 
 /** Trait for an undirected and ''simple'' graph, that is without loop nor parallel edges
@@ -11,8 +12,13 @@ trait SimpleGraph[V] {
     /** The set of all vertices of the graph */
     val vertices : Set[V]
 
-    /** The set of all    edges of the graph */
+    /** The set of all edges of the graph */
     val edges : Set[Edge[V]]
+
+    def show(x: Option[Set[V]]): Set[V] = x match {
+        case Some(s) => s
+        case None => Set()
+    }
 
     /** The set of all vertices adjacent to input vertex
       * @param v vertex
@@ -31,13 +37,35 @@ trait SimpleGraph[V] {
       * @param v2 other end of path to search
       * @return `true` if `v1` and `v2` are equal or if a path exists between `v1` and `v2`, `false` otherwise
       */
-    def hasPath(v1 : V, v2 : V) : Boolean = ???
+    def hasPath(v1 : V, v2 : V) : Boolean = {
+        if ((vertices contains v1) && (vertices contains v2))
+            hasPath0(v1, v2, Set())
+        else
+            false
+    }
+
+    def hasPath0(v1 : V, v2 : V, verticesObserve : Set[V]) : Boolean = {
+        if( !(verticesObserve contains v1) ) {
+            if( !( show(neighborsOf(v1)) contains v2 ) || (verticesObserve == Set(v2)) ) {
+                //println("v1: "+v1+" neighbors of v1: "+show(neighborsOf(v1))+" v2: "+v2)
+                show(neighborsOf(v1)).iterator.foldRight(false)( (v,acc) => {
+                    if(acc) true
+                    else hasPath0(v, v2, verticesObserve+v1)
+                } )
+            }
+            else {
+                true
+            }
+        } else {
+            false
+        }
+    }
 
     /** Checks if graph is connected */
-    lazy val isConnected : Boolean = ???
+    lazy val isConnected : Boolean = vertices.iterator.foldRight(false)((v1,_) => vertices.iterator.foldRight(false)((v2,_) => if(v1==v2) true else hasPath(v1,v2) ))
 
     /** Checks if graph is acyclic */
-    lazy val isAcyclic : Boolean = ???
+    lazy val isAcyclic : Boolean = vertices.iterator.foldRight(false)((v,_) => hasPath(v,v))
 
     /** Checks if graph is a tree */
     lazy val isTree : Boolean = isConnected && isAcyclic

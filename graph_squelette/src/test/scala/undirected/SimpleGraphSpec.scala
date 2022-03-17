@@ -14,6 +14,14 @@ abstract class SimpleGraphSpec[V](companion : SimpleGraphSpecCompanion[V]) exten
 
     /* QUERY METHODS */
 
+    behavior of s"$name.hasPath"
+      it must "yield false if any input vertex is not a vertex of graph" in
+        forAll(graphAndNoActualVertex) { case (g, v) => g.vertices.iterator.foldRight(false)((vg,_) => g.hasPath(v,vg) && g.hasPath(vg,v) ) mustBe false }
+      it must "yield true if vertex are connected" in
+        forAll(graphAndActualEdge) {case (g, e) => g.hasPath(e._2, e._1) mustBe true}
+      it must "yield a boolean in other cases" in
+        forAll(graphAndNoActualEdge) {case (g, e) => Some(g.hasPath(e._1, e._2)) must contain oneOf (true, false)}
+
     behavior of s"$name.neighborsOf"
       it must "yield None if input is not an actual vertex of graph" in
         forAll(graphAndNoActualVertex) { case (g, v) => (g neighborsOf v) mustBe None }
