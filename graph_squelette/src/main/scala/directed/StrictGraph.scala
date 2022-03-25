@@ -16,35 +16,33 @@ trait StrictGraph[V] {
       * @param v vertex
       * @return [[None]] if `v` is not an actual vertex, the set of all successors of `v` otherwise
       */
-    
-   def successorsOf(v : V) : Option[Set[V]]
+    def successorsOf(v : V) : Option[Set[V]]
 
+//https://www.youtube.com/watch?v=hUseIhFZcbE
 
     /** The number of incoming arcs to input vertex
       * @param v vertex
       * @return [[None]] if `v` is not an actual vertex, the inner degree of `v` otherwise
       */
     def inDegreeOf(v : V) : Option[Int] = {
-      if(vertices contains v){
-       Some(vertices count{ arcs contains Arc(_, v) })
-      }else{
-        None
-      }
-
-    }
+        if(vertices contains v ){
+		//https://www.tutorialspoint.com/scala/scala_sets.htm
+            Some(vertices count{ arcs contains Arc(_, v) })
+        }else{
+            None
+        }
+	}
 
     /** The number of outcoming arcs to input vertex
       * @param v vertex
       * @return [[None]] if `v` is not an actual vertex, the outer degree of `v` otherwise
       */
-  
-  
     def outDegreeOf(v : V) : Option[Int] = {
-      if(vertices contains v /*!arcs.isEmphy */){
-       Some(vertices count{ arcs contains Arc(v,_) })
-      }else{
-        None
-      }      
+        if(vertices contains v ){
+            Some(vertices count{ arcs contains Arc(v,_) })
+        }else{
+            None
+        }      
     }
 
     /** The number of adjacent vertices to input vertex
@@ -52,19 +50,13 @@ trait StrictGraph[V] {
       * @return [[None]] if `v` is not an actual vertex, the degree of `v` otherwise
       */
     def degreeOf(v : V) : Option[Int] = {
-      if(vertices contains v){
-        //Some(inDegreeOf(v) ++ outDegreeOf(v))
-        Some((vertices count{ arcs contains Arc(v,_)}) + (vertices count{ arcs contains Arc(_,v)}))
-      }else{
-        None
-      }
+        if(vertices contains v ){
+            //Some(inDegreeOf(v) ++ outDegreeOf(v))
+           Some((vertices count{ arcs contains Arc(v,_)}) + (vertices count{ arcs contains Arc(_,v)}))
+        }else{
+            None
+        }
     }
-
-
-
-
-
-
 
     /* VERTEX OPERATIONS */
 
@@ -111,7 +103,20 @@ trait StrictGraph[V] {
     /* SEARCH METHODS */
 
     /** A topological order of the vertex set (if exists) */
-    lazy val topologicalOrder : Option[Seq[V]] = ???
+    lazy val topologicalOrder : Option[Seq[V]] = ??? /*{
+      //Topological Sorting for a graph is not possible if the graph is not a DAG.
+      //https://www.geeksforgeeks.org/topological-sorting/
+      //créer la condition
+      if (!arcs.isEmphy){
+        
+        //appelle visiter?
+      }else
+        {
+          None
+        }
+
+    }*/
+
 
     /* VALUATED GRAPH METHODS */
 
