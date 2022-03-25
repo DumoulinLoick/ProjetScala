@@ -19,28 +19,13 @@ trait StrictGraph[V] {
     
    def successorsOf(v : V) : Option[Set[V]]
 
-// type de retour => revoit none soit qqchose (sum ( resultat))
-
-
-
 
     /** The number of incoming arcs to input vertex
       * @param v vertex
       * @return [[None]] if `v` is not an actual vertex, the inner degree of `v` otherwise
       */
     def inDegreeOf(v : V) : Option[Int] = {
-       /*val count = 0
       if(vertices contains v){
-        if(vertices filter{ (arcs contains Arc(_,v)) != 0}){
-          count=count+1
-        }
-        if(arcs contains Arc(_,v))
-        {
-          count = count+1
-        }*/
-        //count def(p:(A) => Boolean): Int
-
-      if(vertices contains v /*!arcs.isEmphy */){
        Some(vertices count{ arcs contains Arc(_, v) })
       }else{
         None
@@ -68,7 +53,6 @@ trait StrictGraph[V] {
       */
     def degreeOf(v : V) : Option[Int] = {
       if(vertices contains v){
-
         //Some(inDegreeOf(v) ++ outDegreeOf(v))
         Some((vertices count{ arcs contains Arc(v,_)}) + (vertices count{ arcs contains Arc(_,v)}))
       }else{
