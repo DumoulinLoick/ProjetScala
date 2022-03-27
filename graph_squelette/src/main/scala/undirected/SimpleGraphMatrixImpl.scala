@@ -8,30 +8,51 @@ package undirected
 case class SimpleGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedSeq[Int]]) extends SimpleGraph[V] {
 
     /** @inheritdoc */
-    lazy val vertices : Set[V] = ???
+    lazy val vertices : Set[V] = vs.toSet[V];
 
     /** @inheritdoc */
-    lazy val edges : Set[Edge[V]] = ???
+    lazy val edges : Set[Edge[V]] = (vs map {case x => ((adjacency(vs indexOf x)).zipWithIndex.filter(pair => pair._1 == 1).map(pair => pair._2)).map(a => Edge(x,a))}).flatten.toSet //TODO
 
     /** @inheritdoc */
-    def neighborsOf(v : V) : Option[Set[V]] = ???
+    def neighborsOf(v : V) : Option[Set[V]] =
+        if (!(this.vertices contains v)) None else Some(this.vertices filter { this.edges contains Edge(v, _) })
 
     /** @inheritdoc */
-    def + (v : V) : SimpleGraphMatrixImpl[V] = ???
+    def + (v : V) : SimpleGraphMatrixImpl[V] =
+        if (vs contains v) SimpleGraphMatrixImpl(vs, adjacency) else SimpleGraphMatrixImpl(vs :+ v, adjacency :+ IndexedSeq.fill(adjacency.size)(0)) //add +1 in adjacency.size ???
 
     /** @inheritdoc */
-    def - (v : V) : SimpleGraphMatrixImpl[V] = ???
+    def - (v : V) : SimpleGraphMatrixImpl[V] =
+        if (!(vs contains v)) SimpleGraphMatrixImpl(vs, adjacency)
+        else SimpleGraphMatrixImpl( vs.diff(Seq(v)), adjacency.diff(IndexedSeq(adjacency(vs indexOf(v)))).collect{case e => e.diff(IndexedSeq( e( vs indexOf(v) ) ))} )//result.collect{case e => e.diff(IndexedSeq( e(2) ))}
+        //val original = IndexedSeq("a", "b", "a", "c", "d", "a")
+        //val exclude = IndexedSeq("a", "d", "a")
+        //val result = original.diff(exclude)
 
     /** @inheritdoc */
-    def +| (e : Edge[V]) : SimpleGraphMatrixImpl[V] = ???
+    def +| (e : Edge[V]) : SimpleGraphMatrixImpl[V] =
+        if ( !(vs contains e._1) || !(vs contains e._2) ) SimpleGraphMatrixImpl(vs, adjacency)
+        else SimpleGraphMatrixImpl(vs, vs.map{ case v =>
+                                                        if(v == e._1) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._2), 1) }
+                                                        else if (v == e._2) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._1), 1) }
+                                                        else adjacency(vs.indexOf(v)) }.toIndexedSeq //verify !!!
+        )
 
     /** @inheritdoc */
-    def -| (e : Edge[V]) : SimpleGraphMatrixImpl[V] = ???
+    def -| (e : Edge[V]) : SimpleGraphMatrixImpl[V] = //same technique as +|
+        if ( !(this.edges contains e) ) SimpleGraphMatrixImpl(vs, adjacency)
+        else SimpleGraphMatrixImpl(vs, vs.map{ case v =>
+                                                        if(v == e._1) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._2), 0) }
+                                                        else if (v == e._2) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._1), 0) }
+                                                        else adjacency(vs.indexOf(v)) }.toIndexedSeq )
 
     /** @inheritdoc */
-    def withoutEdge : SimpleGraphMatrixImpl[V] = ???
+    def withoutEdge : SimpleGraphMatrixImpl[V] = SimpleGraphMatrixImpl( vs, IndexedSeq.fill(vs.size)(IndexedSeq.fill(vs.size)(0)) )
 
     /** @inheritdoc */
-    def withAllEdges : SimpleGraphMatrixImpl[V] = ???
+    def withAllEdges : SimpleGraphMatrixImpl[V] = SimpleGraphMatrixImpl( vs, vs.map(v => IndexedSeq.fill(vs.size)(IndexedSeq.fill(vs.size)(1))(vs.indexOf(v)).updated( vs.indexOf(v), 0 )).toIndexedSeq )
+    //2 stages to update adjacency
+    //val withAllEdges = IndexedSeq.fill(vs.size)(IndexedSeq.fill(vs.size)(1))
+    //vs.map(v => withAllEdges(vs.indexOf(v)).updated( vs.indexOf(v), 0 ))
   }
 
