@@ -1,7 +1,9 @@
 package undirected
 
 import java.security.KeyStore.TrustedCertificateEntry
+
 import scala.annotation.tailrec
+import scala.collection.mutable
 
 /** Trait for an undirected and ''simple'' graph, that is without loop nor parallel edges
   * @tparam V type for vertices
@@ -15,6 +17,10 @@ trait SimpleGraph[V] {
     /** The set of all edges of the graph */
     val edges : Set[Edge[V]]
 
+    /** transform an Option[Set[V]] to a Set[V]
+     * @param x Option[Set[V]]
+     * @return None if Set[V] is empty or the Set[V] value
+     */
     def show(x: Option[Set[V]]): Set[V] = x match {
         case Some(s) => s
         case None => Set()
@@ -29,7 +35,7 @@ trait SimpleGraph[V] {
     /** The number of adjacent vertices to input vertex
       * @param v vertex
       * @return [[None]] if `v` is not an actual vertex, the degree of `v` otherwise
-      */
+      */sca
     def degreeOf(v : V) : Option[Int] = neighborsOf(v) map { _.size }
 
     /** Checks if there exists a path between two vertices
@@ -120,7 +126,13 @@ trait SimpleGraph[V] {
       */
     def value(valuation : Map[Edge[V], Double]) : Double = (edges map { valuation(_) }).sum
 
-    /** Minimum spanning tree
+    /** Sorted the valuation of each edges by decreasing value
+     * @param valuation valuation used
+     * @return LinkedHashMap sorted by decreasing degree
+     */
+    def sortedValuation(valuation : Map[Edge[V], Double]) : mutable.LinkedHashMap[Edge[V], Double] = mutable.LinkedHashMap(valuation.toList.sortWith(_._2 < _._2):_*)
+
+    /** Minimum spanning tree = Kruskal's Algorithme
       * @param valuation valuation used
       * @return a spanning tree whose value is minimal
       */
@@ -129,7 +141,7 @@ trait SimpleGraph[V] {
     /* COLORING METHODS */
 
     /** Sequence of vertices sorted by decreasing degree */
-    lazy val sortedVertices : Seq[V] = ???
+    lazy val sortedVertices : Seq[V] = vertices.toSeq.sortWith( (v1,v2) => degreeOf(v1).get > degreeOf(v2).get )
 
     /** Proper coloring using greedy algorithm (a.k.a WELSH-POWELL) */
     lazy val greedyColoring : Map[V, Int] = ???
