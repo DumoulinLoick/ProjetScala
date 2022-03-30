@@ -35,7 +35,7 @@ trait SimpleGraph[V] {
     /** The number of adjacent vertices to input vertex
       * @param v vertex
       * @return [[None]] if `v` is not an actual vertex, the degree of `v` otherwise
-      */sca
+      */
     def degreeOf(v : V) : Option[Int] = neighborsOf(v) map { _.size }
 
     /** Checks if there exists a path between two vertices
@@ -137,14 +137,27 @@ trait SimpleGraph[V] {
       * @return a spanning tree whose value is minimal
       */
     def minimumSpanningTree(valuation : Map[Edge[V], Double]) : SimpleGraph[V] = ???
-
     /* COLORING METHODS */
 
     /** Sequence of vertices sorted by decreasing degree */
     lazy val sortedVertices : Seq[V] = vertices.toSeq.sortWith( (v1,v2) => degreeOf(v1).get > degreeOf(v2).get )
 
     /** Proper coloring using greedy algorithm (a.k.a WELSH-POWELL) */
-    lazy val greedyColoring : Map[V, Int] = ???
+    lazy val greedyColoring : Map[V, Int] = sortedVertices.foldLeft(Map.empty[V,Int]){ (ColorMap, v) =>
+        sortedVertices.foldLeft(ColorMap){ (ColorMap, w) =>
+            if( !(neighborsOf(v).contains(w)) && ( !(ColorMap contains w) || (ColorMap.filter{_._2 == ColorMap.get(w).get}.map(_._1).exists(neighborsOf(w).contains)) ) ) {
+                //colored(w, sortedVertices.indexOf(v), ColorMap)
+                //printf("\nv:"+v)
+                //printf(" w:"+w+" ")
+                //print("if : "+ColorMap)
+                ColorMap+(w -> sortedVertices.indexOf(v))
+            }
+            else {
+                print("\nelse : "+ColorMap)
+                ColorMap
+            }
+        }
+    }
 
     /** Proper coloring using DSATUR algorithm */
     lazy val coloringDSATUR : Map[V, Int] = ???
