@@ -126,7 +126,75 @@ trait StrictGraph[V] {
       * @param end   destination of path
       * @return [[None]] if there is no path from `start` to `end`, the shortest path and its valuation otherwise
       */
-    def shortestPath(valuation : Map[Arc[V], Double])(start : V, end : V) : Option[(Seq[V], Double)] = ???
+    def shortestPath(valuation : Map[Arc[V], Double])(start : V, end : V) : Option[(Seq[V], Double)] = {
+      
+      @tailrec
+      def recursive(remainingVertices: Set[V], next: Set[VertexDijkstra], acc: Set[VertexDijkstra]) : Set[VertexDijkstra] = {
+        if (remainingVertices.isEmpty) acc
+        else {
+          // Find the vertex with the smallest distance among the next VertexDijkstra that aren't visited
+          val min = next.foldLeft(next.head){ (x, y) => if (x.distance < y.distance) x else y}
+          // Remove the vertex visited from next and add it to acc
+          next - min
+          acc + min
+          // Modify vertex by adding the corresponding arc and distance in acc
+          (acc map {
+            case x => if (x==min)
+                      {
+                        arcs.filter(_._1== min.v).map{case y => VertexDijkstra(min.v,true,valuation(y),Some(y))}
+                        // Add new vertices to visit in next
+                        next ++ arcs.filter(_._1== min.v).map{case y => VertexDijkstra(y._2,false,valuation(y),None)}
+
+                      }
+                      else Set(x)
+          }).flatten
+          // Remove min vertex from remaining vertices
+          remainingVertices - min.v
+
+          recursive(remainingVertices, next, acc)
+        }
+      }
+
+      val finalValue = recursive(vertices, Set( VertexDijkstra(start, false, 0, None) ), Set.empty)
+    }
+
+    /** Computes a shortest path between two vertices
+      * @param g the graph
+      * @param valuation valuation of graph
+      * @param start origin of path
+      * @param end   destination of path
+      * @return a pair of maps, _1 is the valuation from the start for each node, _2 is the predecessor of each node
+      */
+    def dijkstra[V](g: StrictGraph[V], valuation : Map[Arc[V], Double])(start : V, end : V) : (Map[V, Double], Map[V, V]) = {
+      
+      @tailrec
+      def recursive(next: Set[V], costs: Map[V, Double], predecessors: Map[V, V]) : (Map[V, Double], Map[V, V]) = {
+        if (next.isEmpty) (costs, predecessors)
+        else {
+          val vertex = next.minBy(costs)
+          val cost = costs(V)
+
+          val neighborsCost = g.successorsOf(vertex) match {
+              case Some(i) => i.foldLeft(Map.empty[V, Double]){ (acc, v) => acc + (v -> valuation(Arc(vertex, v))}
+              case None => Map.empty
+          }
+
+          val neighbors = for {
+            (v, c) <- neighborsCost
+            if (
+              cost + c < costs.getOrElse(v, Double.PositiveInfinity)
+            )
+           } yield v -> (cost + c)
+          
+          val newNext = next - vertex ++ neighbors.keys
+          val newPredecessors = neighbors mapValues (_ => vertex)
+
+          recursive(newNext, costs ++ neighbors , predecessors ++ newPredecessors)
+        }
+      }
+
+      recursive(Set(start), Map(start -> 0), Map.empty)
+    }
 
     /* toString-LIKE METHODS */
 
