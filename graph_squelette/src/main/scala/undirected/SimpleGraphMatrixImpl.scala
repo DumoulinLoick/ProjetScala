@@ -11,7 +11,7 @@ case class SimpleGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedS
     lazy val vertices : Set[V] = vs.toSet[V];
 
     /** @inheritdoc */
-    lazy val edges : Set[Edge[V]] = (vs map {case x => ((adjacency(vs indexOf x)).zipWithIndex.filter(pair => pair._1 == 1).map(pair => pair._2)).map(a => Edge(x,a))}).flatten.toSet //TODO
+    lazy val edges : Set[Edge[V]] = (vs map {case x => ((adjacency(vs indexOf x)).zipWithIndex.filter(pair => pair._1 == 1).map(pair => pair._2)).map(a => Edge(x,a.asInstanceOf[V]))}).flatten.toSet
 
     /** @inheritdoc */
     def neighborsOf(v : V) : Option[Set[V]] =
