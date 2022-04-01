@@ -3,6 +3,7 @@ package undirected
 import org.scalacheck.Gen
 import org.scalacheck.Gen._
 
+
 /** The test class for [[SimpleGraphNeighborsImpl]] implementation */
 class SimpleGraphNeighborsImplSpec extends SimpleGraphSpec(SimpleGraphNeighborsImplSpec)
 

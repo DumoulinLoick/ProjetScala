@@ -12,8 +12,10 @@ object SimpleGraphDefaultImplSpec extends SimpleGraphSpecCompanion[Int]("SimpleG
 
     /** @inheritdoc */
     def graphWithAtLeast(vertexMinCount: Int, edgeMinCount: Int = 0): Gen[SimpleGraphDefaultImpl[Int]] =
-      for(vertexAdditionalCount <- posNum[Int] ; vertexCount <- Gen.const((vertexMinCount + vertexAdditionalCount) max 1) ;
+      for(vertexAdditionalCount <- posNum[Int] ;
+          vertexCount <- Gen.const((vertexMinCount + vertexAdditionalCount) max 1) ;
           vs <- Gen.containerOfN[Set, Int](vertexCount, vertex) ;
           edgeCount <- Gen.choose(edgeMinCount, vertexCount * (vertexCount - 1) / 2) ;
-          es <- Gen.containerOfN[Set, Edge[Int]](edgeCount, edgeFrom(vs))) yield SimpleGraphDefaultImpl(vs, es)
+          es <- Gen.containerOfN[Set, Edge[Int]](edgeCount, edgeFrom(vs)))
+      yield SimpleGraphDefaultImpl(vs, es)
   }
