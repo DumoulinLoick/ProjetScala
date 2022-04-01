@@ -14,7 +14,7 @@ case class StrictGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedS
 
     /** @inheritdoc */
     lazy val arcs : Set[Arc[V]] = {
-      //IDK how to do this 
+      lazy val arcs : Set[Arc[V]] =  (vs map {case x => ((adjacency(vs indexOf x)).zipWithIndex.filter(pair => pair._1 == 1).map(pair => pair._2)).map(a => Arc(x,a.asInstanceOf[V]))}).flatten.toSet
     }
 
     /** @inheritdoc */
