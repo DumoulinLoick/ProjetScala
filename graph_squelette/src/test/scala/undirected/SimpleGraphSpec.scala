@@ -30,6 +30,15 @@ abstract class SimpleGraphSpec[V](companion : SimpleGraphSpecCompanion[V]) exten
       it must "yield a set of adjacent vertices" in
         forAll(graphAndActualVertex)   { case (g, v) => (g neighborsOf v).get forall { g.edges contains Edge(v, _) }}
 
+    behavior of s"$name.greedyColoring"
+      it must "2 neighbors can not have the same color" in
+        forAll(graphAndActualEdge) { case (g, e) => g.greedyColoring(e._1) must not be equal(g.greedyColoring(e._2)) }
+
+    behavior of s"$name.minimumSpanningTree"
+      it must "yield a tree" in
+        forAll(graphAndValuation) { case (g, values) => g.minimumSpanningTree(values).isTree mustBe true }
+
+
     /* VERTEX OPERATIONS */
 
     behavior of s"$name.+"

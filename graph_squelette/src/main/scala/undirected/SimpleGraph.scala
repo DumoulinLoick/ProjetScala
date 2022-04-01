@@ -71,7 +71,7 @@ trait SimpleGraph[V] {
     lazy val isConnected : Boolean = vertices.iterator.foldRight(false)((v1,_) => vertices.iterator.foldRight(false)((v2,_) => if(v1==v2) true else hasPath(v1,v2) ))
 
     /** Checks if graph is acyclic */
-    lazy val isAcyclic : Boolean = vertices.iterator.foldRight(false)((v,_) => hasPath(v,v))
+    lazy val isAcyclic : Boolean = if (edges.isEmpty) true else !(vertices.iterator.foldRight(false)((v,_) => hasPath(v,v)))
 
     /** Checks if graph is a tree */
     lazy val isTree : Boolean = isConnected && isAcyclic
@@ -136,7 +136,15 @@ trait SimpleGraph[V] {
       * @param valuation valuation used
       * @return a spanning tree whose value is minimal
       */
-    def minimumSpanningTree(valuation : Map[Edge[V], Double]) : SimpleGraph[V] = ???
+    def minimumSpanningTree(valuation : Map[Edge[V], Double]) : SimpleGraph[V] = {
+        //print("valuation : "+sortedValuation(valuation))
+        //print(sortedValuation(valuation))
+        sortedValuation(valuation).foldLeft(SimpleGraphDefaultImpl(Set[V](), Set[Edge[V]]())) { (SimpleGraph, e) =>
+          if( (SimpleGraph +| e._1).isAcyclic ) SimpleGraph +| e._1
+          else SimpleGraph
+        }
+    }
+
     /* COLORING METHODS */
 
     /** Sequence of vertices sorted by decreasing degree */
@@ -153,7 +161,7 @@ trait SimpleGraph[V] {
                 ColorMap+(w -> sortedVertices.indexOf(v))
             }
             else {
-                print("\nelse : "+ColorMap)
+                //print("\nelse : "+ColorMap)
                 ColorMap
             }
         }
