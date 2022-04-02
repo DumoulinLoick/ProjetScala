@@ -21,27 +21,35 @@ case class SimpleGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedS
 
     /** @inheritdoc */
     def + (v : V) : SimpleGraphMatrixImpl[V] =
-        if (vs contains v) SimpleGraphMatrixImpl(vs, adjacency) else SimpleGraphMatrixImpl(vs :+ v, adjacency :+ IndexedSeq.fill(adjacency.size)(0)) //add +1 in adjacency.size ???
+        if (vs contains v) SimpleGraphMatrixImpl(vs, adjacency) else SimpleGraphMatrixImpl(vs :+ v, adjacency :+ IndexedSeq.fill(adjacency.size)(0))
 
     /** @inheritdoc */
-    def - (v : V) : SimpleGraphMatrixImpl[V] =
-        if (!(vs contains v)) SimpleGraphMatrixImpl(vs, adjacency)
-        else SimpleGraphMatrixImpl( vs.diff(Seq(v)), adjacency.diff(IndexedSeq(adjacency(vs indexOf(v)))).collect{case e => e.diff(IndexedSeq( e( vs indexOf(v) ) ))} )//result.collect{case e => e.diff(IndexedSeq( e(2) ))}
-        //val original = IndexedSeq("a", "b", "a", "c", "d", "a")
-        //val exclude = IndexedSeq("a", "d", "a")
-        //val result = original.diff(exclude)
+    def - (v : V) : SimpleGraphMatrixImpl[V] = {
+        val index = vs.indexOf(v)
+        if (!vs.contains(v)) SimpleGraphMatrixImpl(vs, adjacency)
+        else
+        {
+            val newAdjacency = adjacency.patch(index, Nil, 1).map(l => l.patch(index, Nil, 1))
+            SimpleGraphMatrixImpl(vs.filter(_ != v), newAdjacency)
+        }
+    }
 
     /** @inheritdoc */
-    def +| (e : Edge[V]) : SimpleGraphMatrixImpl[V] =
-        if ( !(vs contains e._1) || !(vs contains e._2) ) SimpleGraphMatrixImpl(vs, adjacency)
-        else SimpleGraphMatrixImpl(vs, vs.map{ case v =>
-                                                        if(v == e._1) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._2), 1) }
-                                                        else if (v == e._2) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._1), 1) }
-                                                        else adjacency(vs.indexOf(v)) }.toIndexedSeq //verify !!!
-        )
+    def +| (e : Edge[V]) : SimpleGraphMatrixImpl[V] = {
+        // Create a new adjacency matrix with same edges then before and potential new vertices
+        val newVs = (vs :+ e._1 :+ e._2).distinct
+        val tmpAdjacency = (0 to newVs.size-1).map(x => IndexedSeq((0 to newVs.size-1).map(y => if (x < vs.size && y < vs.size) adjacency(x)(y) else 0 )).flatten).toIndexedSeq
+
+        // Add edge to adjacency matrix
+        val iSource = newVs.indexOf(e._1)
+        val iDest = newVs.indexOf(e._2)
+        val e1Adjacency = tmpAdjacency.updated(iSource, tmpAdjacency(iSource).updated(iDest, 1))
+        val newAdjacency = e1Adjacency.updated(iDest, e1Adjacency(iDest).updated(iSource, 1))
+        SimpleGraphMatrixImpl(newVs, newAdjacency)
+    }
 
     /** @inheritdoc */
-    def -| (e : Edge[V]) : SimpleGraphMatrixImpl[V] = //same technique as +|
+    def -| (e : Edge[V]) : SimpleGraphMatrixImpl[V] = 
         if ( !(this.edges contains e) ) SimpleGraphMatrixImpl(vs, adjacency)
         else SimpleGraphMatrixImpl(vs, vs.map{ case v =>
                                                         if(v == e._1) { adjacency(vs.indexOf(v)).updated(vs.indexOf(e._2), 0) }

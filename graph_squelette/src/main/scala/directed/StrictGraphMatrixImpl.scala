@@ -43,14 +43,15 @@ case class StrictGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedS
 
     /** @inheritdoc */
     def +| (e : Arc[V]) : StrictGraphMatrixImpl[V] = {
-        //if (!(vs contains e._1)) this + e._1
-        //if (!(vs contains e._2)) this + e._2
-        
-        val iSource = vs.indexOf(e._1)
-        val iDest = vs.indexOf(e._2)
-        val newAdjacency = adjacency.updated(iSource, adjacency(iSource).updated(iDest, 1))
-        StrictGraphMatrixImpl(vs, newAdjacency)
+        // Create a new adjacency matrix with same arcs then before and potential new vertices
+        val newVs = (vs :+ e._1 :+ e._2).distinct
+        val tmpAdjacency = (0 to newVs.size-1).map(x => IndexedSeq((0 to newVs.size-1).map(y => if (x < vs.size && y < vs.size) adjacency(x)(y) else 0 )).flatten).toIndexedSeq
 
+        // Add the arc to the adjacency matrix
+        val iSource = newVs.indexOf(e._1)
+        val iDest = newVs.indexOf(e._2)
+        val newAdjacency = tmpAdjacency.updated(iSource, tmpAdjacency(iSource).updated(iDest, 1))
+        StrictGraphMatrixImpl(newVs, newAdjacency)
     }
 
     /** @inheritdoc */
@@ -68,6 +69,6 @@ case class StrictGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedS
     def withoutArc : StrictGraphMatrixImpl[V] = StrictGraphMatrixImpl(vs, IndexedSeq.fill(vs.size)(IndexedSeq.fill(vs.size)(0)))
 
     /** @inheritdoc */
-    def withAllArcs : StrictGraphMatrixImpl[V] = ???
+    def withAllArcs : StrictGraphMatrixImpl[V] = StrictGraphMatrixImpl( vs, vs.map(v => IndexedSeq.fill(vs.size)(IndexedSeq.fill(vs.size)(1))(vs.indexOf(v)).updated( vs.indexOf(v), 0 )).toIndexedSeq )
 }
 

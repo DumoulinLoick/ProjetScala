@@ -169,7 +169,7 @@ trait SimpleGraph[V] {
 
     /** Proper coloring using DSATUR algorithm */
     
-    /*Calcule de la fonction DSATUR pour une arrete du graphe*/
+    /*/*Calcule de la fonction DSATUR pour une arrete du graphe*/
     def DSAT(v : Int, sortedV:List[Int], colors:List[Int], sortedVmemoire:List[Int],colored:Map[Int,Int]) : Int = 
       (sortedV, colors) match{
         case (List(), List()) => 0
@@ -205,7 +205,7 @@ trait SimpleGraph[V] {
       }
 
     lazy val coloringDSATUR : Map[V, Int] = ColorationDSAT(sortedVertices,List(),Map(),List())
-
+    */
     /* toString-LIKE METHODS */
 
     /** @inheritdoc */
