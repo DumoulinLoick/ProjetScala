@@ -167,10 +167,10 @@ trait SimpleGraph[V] {
         }
     }
 
-    /** Proper coloring using DSATUR algorithm */
+     /** Proper coloring using DSATUR algorithm */
     
-    /*/*Calcule de la fonction DSATUR pour une arrete du graphe*/
-    def DSAT(v : Int, sortedV:List[Int], colors:List[Int], sortedVmemoire:List[Int],colored:Map[Int,Int]) : Int = 
+    /*Calcule de la fonction DSATUR pour une arrete du graphe*/
+    def DSAT(v : V, sortedV:List[V], colors:List[Int], sortedVmemoire:List[V],colored:Map[V,Int]) : Int = 
       (sortedV, colors) match{
         case (List(), List()) => 0
         case (List(), color::reste) => DSAT(v,sortedVmemoire,reste,sortedVmemoire,colored)
@@ -182,19 +182,20 @@ trait SimpleGraph[V] {
         case (t::q, colors) =>DSAT(v,q,colors,sortedVmemoire,colored)
       }
     /*place l'élément au DSATUR le plus éleve en premier dans la liste des sommets à traiter*/
-    def DSATmaxEnTeteDeSortedV(sorted:List[Int],colors: List[Int],colored:Map[Int,Int]): List[Int]=
+    def DSATmaxEnTeteDeSortedV(sorted:List[V],colors: List[Int],colored:Map[V,Int]): List[V]={
       if (sorted.isEmpty){return List()}
       val DSATmax=sorted.map{case v=>(v,DSAT(v,sorted,colors,sorted,colored))}.toMap.maxBy{case (key, value) => value }._1
       return(List(DSATmax)++sorted.filter(_!=DSATmax))
-    
+    }
+
     /*bouléen true si un voisin à la même couleur*/
-    def laCouleurEstPriseParUnVoisin(v:Int, colored:Map[Int,Int], couleur:Int):Boolean=
-      neighborsOf(v).map{case v=>(v,if(colored.contains(v)){if(colored(v)==couleur){return(true)}})}
+    def laCouleurEstPriseParUnVoisin(v:V, colored:Map[V,Int], couleur:Int):Boolean={
+      neighborsOf(v).map{case x=>(x,if(colored.contains(v)){if(colored(v)==couleur){return(true)}})}
       return false
-    
+    }
 
     /*applique la coloration DSAT à un graph*/
-    def ColorationDSAT(sortedV:List[Int],colors:List[Int],colored:Map[Int,Int],colorsMemoire:List[Int]) : Map[Int,Int]=
+    def ColorationDSAT(sortedV:List[V],colors:List[Int],colored:Map[V,Int],colorsMemoire:List[Int]) : Map[V,Int]=
       (sortedV,colors,colored,colorsMemoire) match{
         case (List(),_,_,_) =>colored
         case (tv::qv,List(),_,List()) =>ColorationDSAT(DSATmaxEnTeteDeSortedV(qv,List(1),Map(tv->1)),List(1),Map(tv->1),List(1))
@@ -204,8 +205,7 @@ trait SimpleGraph[V] {
         case (tv::qv,tc::qc,colored,colorsMemoire) =>ColorationDSAT(tv::qv,qc,colored,colorsMemoire)
       }
 
-    lazy val coloringDSATUR : Map[V, Int] = ColorationDSAT(sortedVertices,List(),Map(),List())
-    */
+    lazy val coloringDSATUR : Map[V, Int] = ColorationDSAT(sortedVertices.toList,List(),Map(),List())
     /* toString-LIKE METHODS */
 
     /** @inheritdoc */
