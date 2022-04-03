@@ -17,6 +17,15 @@ case class StrictGraphMatrixImpl[V](vs : Seq[V], adjacency : IndexedSeq[IndexedS
         vs.zipWithIndex.map(eVs => adjacency(eVs._2).zipWithIndex.filter(p => p._1 == 1).map(eIsArc => Arc(eVs._1, vs(eIsArc._2)) ) ).flatten.toSet
     }
 
+     /** @inheritdoc */
+    def valuation(vertices:Set[V], arcs:List[Arc[V]], matrix:IndexedSeq[IndexedSeq[Int]]): Map[Arc[V],Double] ={
+        arcs match{
+            case (List()) => Map[Arc[V],Double]()
+            case (t::q) => valuation(vertices,q,matrix)++Map[Arc[V],Double](t->matrix(vertices.toList.indexWhere(v=>v==t._1))(vertices.toList.indexWhere(v=>v==t._2)).toDouble)
+        }
+        
+    }       
+
     /** @inheritdoc */
     def successorsOf(v : V) : Option[Set[V]] = {  
         val index = vs.indexOf(v)

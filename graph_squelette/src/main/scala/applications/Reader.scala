@@ -11,4 +11,6 @@ object Reader {
         .map(line => Antenne(line(1)))
         .toSet
     }
+
+    
 }
