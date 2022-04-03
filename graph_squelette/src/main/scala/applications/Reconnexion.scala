@@ -5,11 +5,16 @@ import scala.collection.immutable.ListMap
 
 object Reconnexion extends App {
 
-    val antennes = Reader.getAntennes()
+    val antennes = Reader.getAntennes()//.filter(_.departement == "16166")
     println(s"${antennes.size} antennes")
-   /* for (i <- 0 until antennes.size) {
-        println(s"${antennes[i].id} : ${antennes[i].longitude} ${antennes[i].latitude}")
-    }*/
 
-    val a = antennes
+
+    val graph = SimpleGraphDefaultImpl(antennes, Set[Edge[Antenne]]())
+    
+    //val coutReconnexion = graph.edges.map(edge => (edge, edge.length)).toMap
+    //println(s"${coutReconnexion.size} arcs")
+    //caluation : une map associe un arc a une longueur
+    // valuation Map[Edge[V], Double]
+
+    //val applicationTREE = graph.minimumSpanningTree(valuation)
 }
