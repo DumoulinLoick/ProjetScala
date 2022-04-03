@@ -3,7 +3,8 @@ package undirected
 import org.scalacheck.Gen
 import org.scalacheck.Gen._
 
-/** The test class for [[SimpleGraphNeighborsImpl]] implementation */
+
+/** The test class for [[SimpleGraphMatrixImplSpec]] implementation */
 class SimpleGraphMatrixImplSpec extends SimpleGraphSpec(SimpleGraphMatrixImplSpec)
 
 object SimpleGraphMatrixImplSpec extends SimpleGraphSpecCompanion[Int]("SimpleGraphMatrixImpl") {
@@ -26,5 +27,4 @@ object SimpleGraphMatrixImplSpec extends SimpleGraphSpecCompanion[Int]("SimpleGr
         edgeCount <- Gen.choose(edgeMinCount, vertexCount * (vertexCount - 1) / 2) ;
         es <- Gen.containerOfN[Set, Edge[Int]](edgeCount, edgeFrom(vs))
       ) yield SimpleGraphMatrixImpl(vs.toSeq, matrixFromVerticesAndEdges[Int](vs, ed))
-
 }
