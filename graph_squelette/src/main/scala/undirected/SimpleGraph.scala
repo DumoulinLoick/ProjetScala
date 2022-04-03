@@ -150,23 +150,21 @@ trait SimpleGraph[V] {
     /** Sequence of vertices sorted by decreasing degree */
     lazy val sortedVertices : Seq[V] = vertices.toSeq.sortWith( (v1,v2) => degreeOf(v1).get > degreeOf(v2).get )
 
-    /** Proper coloring using greedy algorithm (a.k.a WELSH-POWELL) */
-    lazy val greedyColoring : Map[V, Int] = sortedVertices.foldLeft(Map.empty[V,Int]){ (ColorMap, v) =>
-        sortedVertices.foldLeft(ColorMap){ (ColorMap, w) =>
-            if( !(neighborsOf(v).contains(w)) && ( !(ColorMap contains w) || (ColorMap.filter{_._2 == ColorMap.get(w).get}.map(_._1).exists(neighborsOf(w).contains)) ) ) {
-                //colored(w, sortedVertices.indexOf(v), ColorMap)
-                //printf("\nv:"+v)
-                //printf(" w:"+w+" ")
-                //print("if : "+ColorMap)
-                ColorMap+(w -> sortedVertices.indexOf(v))
-            }
-            else {
-                //print("\nelse : "+ColorMap)
-                ColorMap
-            }
-        }
-    }
+      /** Proper coloring using greedy algorithm (a.k.a WELSH-POWELL) */        
 
+      def coloriageGreedy(sortedV: Seq[V], colored: Map[V, Int]) : Map[V, Int] = {
+        if (sortedV.isEmpty) colored
+        else coloriageGreedy(sortedV.tail,colored + (sortedV.head -> {
+          neighborsOf(sortedV.head).getOrElse(Set()).map(v => {colored.getOrElse(v, 0)}) 
+          match {
+              case n if n.size == 0 => 1  
+              case n => (1 to n.size).find(c => !n.contains(c)).getOrElse(n.size+1)
+          }
+        }))
+      }
+
+      lazy val greedyColoring : Map[V, Int] = {coloriageGreedy(sortedVertices, Map())}
+   
      /** Proper coloring using DSATUR algorithm */
     
     /*Calcule de la fonction DSATUR pour une arrete du graphe*/
@@ -188,24 +186,22 @@ trait SimpleGraph[V] {
       return(List(DSATmax)++sorted.filter(_!=DSATmax))
     }
 
-    /*bouléen true si un voisin à la même couleur*/
-    def laCouleurEstPriseParUnVoisin(v:V, colored:Map[V,Int], couleur:Int):Boolean={
-      neighborsOf(v).map{case x=>(x,if(colored.contains(v)){if(colored(v)==couleur){return(true)}})}
-      return false
+    def coloriageDSATUR(sortedV: Seq[V], colored: Map[V, Int]) : Map[V, Int] = {
+      if (sortedV.isEmpty) colored
+      else coloriageDSATUR(DSATmaxEnTeteDeSortedV(sortedV.tail.toList,colored.values.toList.sortWith(_<_).distinct,colored),colored + (sortedV.head -> {
+        neighborsOf(sortedV.head).getOrElse(Set()).map(v => {colored.getOrElse(v, 0)}) 
+        match {
+            case n if n.size == 0 => 1  
+            case n => (1 to n.size).find(c => !n.contains(c)).getOrElse(n.size+1)
+        }
+      }))
     }
-
-    /*applique la coloration DSAT à un graph*/
-    def ColorationDSAT(sortedV:List[V],colors:List[Int],colored:Map[V,Int],colorsMemoire:List[Int]) : Map[V,Int]=
-      (sortedV,colors,colored,colorsMemoire) match{
-        case (List(),_,_,_) =>colored
-        case (tv::qv,List(),_,List()) =>ColorationDSAT(DSATmaxEnTeteDeSortedV(qv,List(1),Map(tv->1)),List(1),Map(tv->1),List(1))
-        case (tv::qv,List(),colored,colorsMemoire) =>ColorationDSAT(DSATmaxEnTeteDeSortedV(qv,colorsMemoire:+(colorsMemoire.last+1),colored++Map(tv->(colorsMemoire.last+1))),colorsMemoire:+(colorsMemoire.last+1),colored++Map(tv->(colorsMemoire.last+1)),colorsMemoire:+(colorsMemoire.last+1))
-        case (tv::qv,tc::qc,colored,colorsMemoire)if !laCouleurEstPriseParUnVoisin(tv,colored,tc)
-              =>ColorationDSAT(DSATmaxEnTeteDeSortedV(qv,colorsMemoire,colored++Map(tv->tc)),colorsMemoire,colored++Map(tv->tc),colorsMemoire)
-        case (tv::qv,tc::qc,colored,colorsMemoire) =>ColorationDSAT(tv::qv,qc,colored,colorsMemoire)
+    lazy val coloringDSATUR : Map[V, Int] = {
+        
+        coloriageDSATUR(sortedVertices, Map())
       }
 
-    lazy val coloringDSATUR : Map[V, Int] = ColorationDSAT(sortedVertices.toList,List(),Map(),List())
+    //lazy val coloringDSATUR : Map[V, Int] = ColorationDSAT(sortedVertices.toList,List(),Map(),List())
     /* toString-LIKE METHODS */
 
     /** @inheritdoc */

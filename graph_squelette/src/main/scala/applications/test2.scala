@@ -20,7 +20,8 @@ object test2 {
                                         
                                             }
     val testest: StrictGraphMatrixImpl[Int]=StrictGraphMatrixImpl(Seq[Int](0,1,2,3,4,5),matrice)            
-    println(testest.shortestPath(testest.valuation(testest.vertices,testest.arcs.toList,testest.adjacency))(0,5))    
+    println(testest.shortestPath(testest.valuation(testest.vertices,testest.arcs.toList,testest.adjacency))(0,5))  
+    println(testest.valuation(testest.vertices,testest.arcs.toList,testest.adjacency))  
 
   }
 }

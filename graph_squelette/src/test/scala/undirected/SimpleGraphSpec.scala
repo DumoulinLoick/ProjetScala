@@ -33,6 +33,11 @@ abstract class SimpleGraphSpec[V](companion : SimpleGraphSpecCompanion[V]) exten
     behavior of s"$name.greedyColoring"
       it must "2 neighbors can not have the same color" in
         forAll(graphAndActualEdge) { case (g, e) => g.greedyColoring(e._1) must not be equal(g.greedyColoring(e._2)) }
+    behavior of s"$name.coloringDSATUR"
+      it must "2 neighbors can not have the same color" in
+        forAll(graphAndActualEdge) { case (g, e) => g.coloringDSATUR(e._1) must not be equal(g.coloringDSATUR(e._2)) }
+
+
 /*
     behavior of s"$name.minimumSpanningTree"
       it must "yield a tree" in
