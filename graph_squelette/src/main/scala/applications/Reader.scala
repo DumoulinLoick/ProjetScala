@@ -15,7 +15,7 @@ object Reader {
                 car.toInt 
             }
         catch { 
-            case NonFatal(t) => 1
+            case NonFatal(t) => 100000
         }
     }
 
@@ -26,12 +26,12 @@ object Reader {
         .drop(1)
         .map(line => line.split(";"))
         .filter(_.size == 15)
-        .filter(split => tryUse(split(4)) != 1)
-        .filter(split => tryUse(split(5)) != 1)
-        .filter(split => tryUse(split(7)) != 1)
-        .filter(split => tryUse(split(8)) != 1)
-        .filter(split => tryUse(split(9)) != 1)
-        .filter(split => tryUse(split(11))!= 1)
+        .filter(split => tryUse(split(4)) != 100000)
+        .filter(split => tryUse(split(5)) != 100000)
+        .filter(split => tryUse(split(7)) != 100000)
+        .filter(split => tryUse(split(8)) != 100000)
+        .filter(split => tryUse(split(9)) != 100000)
+        .filter(split => tryUse(split(11))!= 100000)
         .map(split => Antenne(
             split(1) ,
             split(4).toInt , 
