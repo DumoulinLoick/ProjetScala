@@ -6,7 +6,7 @@ import scala.collection.immutable.ListMap
 object Reconnexion extends App {
 
     val antennes = Reader.getAntennes()//.filter(_.departement == "16166")
-    println(s"${antennes.size} antennes")
+    println(antennes.head.departement)
 
 
     val graph = SimpleGraphDefaultImpl(antennes, Set[Edge[Antenne]]())
