@@ -100,19 +100,23 @@ trait StrictGraph[V] {
   /* SEARCH METHODS */
 
   /** A topological order of the vertex set (if exists) */
-  lazy val topologicalOrder : Option[Seq[V]] = ??? /*{
-    //Topological Sorting for a graph is not possible if the graph is not a DAG.
-    //https://www.geeksforgeeks.org/topological-sorting/
-    //créer la condition
-    if (!arcs.isEmphy){
-      
-      //appelle visiter?
-    }else
-      {
-        None
+  lazy val topologicalOrder : Option[Seq[V]] = {
+    @tailrec def recur(graph: StrictGraph[V], orderedSeq: Option[Seq[V]]) : Option[Seq[V]] = {
+        // Si on trouve un cycle on stop
+      if (!orderedSeq.isDefined) orderedSeq
+      // Si il ne reste plus qu'un noeud on stop
+      else if (graph.vertices.size == 1) Some(orderedSeq.getOrElse(Seq()) :+ graph.vertices.head)
+      // on cherche une racine du graphe restant
+      else graph.vertices.find(graph.inDegreeOf(_) == Some(0)) match {
+        // si on le trouve, on l'ajoute à la liste
+        case Some(v) => recur(graph-v, Some(orderedSeq.getOrElse(Seq()) :+ v))
+        // sinon c'est un cycle
+        case None => None
       }
+    }
 
-  }*/
+    recur(this, Some(Seq()))
+  }
 
 
   /* VALUATED GRAPH METHODS */
